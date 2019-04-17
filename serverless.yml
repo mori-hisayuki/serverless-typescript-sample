@@ -9,7 +9,15 @@ plugins:
 provider:
   name: aws
   runtime: nodejs8.10
-
+  region: ap-northeast-1
+  stage: ${opt:stage, self:custom.defaultStage}
+  profile: ${self:custom.profiles.${self:provider.stage}}
+custom:
+  defaultStage: dev
+  defaultRegion: ap-northeast-1
+  profiles:
+    dev: serverless
+    prod: serverless_prd
 functions:
   hello:
     handler: handler.hello
